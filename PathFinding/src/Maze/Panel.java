@@ -39,7 +39,7 @@ public class Panel extends JPanel {
         setBackground(new Color(255, 255, 255));
         this.addComponentListener(new ResizeListenerPanel(this));
         this.setSize(frameSize);
-        //System.out.println(this.getSize());
+
         maze = new Maze(this , intMaze, new Color(0,0,0), new Color(255,255,255), new Color(255, 0, 0));
         Panel.this.repaint();
     }
@@ -49,6 +49,5 @@ public class Panel extends JPanel {
         super.paintComponent(g);
         maze.setStartingPoint(this.getSize());
         this.maze.drawMaze(g);
-        //System.out.println(this.getSize());
     }
 }

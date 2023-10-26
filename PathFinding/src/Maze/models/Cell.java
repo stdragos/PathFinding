@@ -11,9 +11,8 @@ public class Cell {
         position = point;
     }
 
-    public Cell(Color cellColor, Point position, int length) {
+    public Cell(Color cellColor, int length) {
         this.cellColor = cellColor;
-        this.position = position;
         this.length = length;
     }
 

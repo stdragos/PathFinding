@@ -18,23 +18,26 @@ public class Maze {
 
     public Maze(Panel panel, List<List<Integer>> maze, Color blockedCell, Color freeCell, Color startCell) {
         this.intMaze = maze;
-        var panelHeight = panel.getSize().height;
-        var panelWidth = panel.getSize().width;
 
         for(int i = 0; i < maze.size(); ++i) {
             List<Cell> temp = new ArrayList<>();
             for(int j = 0; j < maze.get(i).size(); ++j) {
                 switch (maze.get(i).get(j)){
-                    case 0 -> temp.add(new Cell(blockedCell, new Point(0, 0), 60));//blocked cell
+                    case 0 -> temp.add(new Cell(blockedCell, 60));//blocked cell
 
-                    case 1 -> temp.add(new Cell(freeCell, new Point(0, 0), 60));
+                    case 1 -> temp.add(new Cell(freeCell, 60));
 
-                    case 2-> temp.add(new Cell(startCell, new Point(0, 0), 60));
+                    case 2-> temp.add(new Cell(startCell, 60));
                 }
 
-            }cellMaze.add(temp);
+            }
+            cellMaze.add(temp);
         }
 
+    }
+
+    public List<List<Integer>> getIntMaze() {
+        return intMaze;
     }
 
     public void drawMaze(Graphics g) {

@@ -1,23 +1,26 @@
-package models;
+package Maze.models;
 
 import java.awt.*;
-import java.util.List;
 
 public class Cell {
     private Color cellColor;
-    private Point centerPosition;
-    private int diameter;
+    private Point position;
+    private int length;
 
-    public Cell(Color cellColor, Point centerPosition, int diameter) {
+    public void setPosition(Point point) {
+        position = point;
+    }
+
+    public Cell(Color cellColor, Point position, int length) {
         this.cellColor = cellColor;
-        this.centerPosition = centerPosition;
-        this.diameter = diameter;
+        this.position = position;
+        this.length = length;
     }
 
     public void drawCell(Graphics g) {
         g.setColor(cellColor);
-        g.fillRect(this.centerPosition.x - diameter,this.centerPosition.y - diameter,  diameter,  diameter);
+        g.fillRect(this.position.x, this.position.y,  length,  length);
         g.setColor(new Color(0,0,0));
-        g.drawRect(this.centerPosition.x - diameter,this.centerPosition.y - diameter,  diameter,  diameter);
+        g.drawRect(this.position.x,this.position.y,  length,  length);
     }
 }

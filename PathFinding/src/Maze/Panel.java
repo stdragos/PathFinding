@@ -1,6 +1,7 @@
+package Maze;
 
-import models.Maze;
-
+import Maze.listeners.ResizeListenerPanel;
+import Maze.models.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,17 +34,21 @@ public class Panel extends JPanel {
 
     }
 
-    public Panel() {
+    public Panel(Dimension frameSize) {
         readMatrix();
         setBackground(new Color(255, 255, 255));
+        this.addComponentListener(new ResizeListenerPanel(this));
+        this.setSize(frameSize);
+        //System.out.println(this.getSize());
         maze = new Maze(this , intMaze, new Color(0,0,0), new Color(255,255,255), new Color(255, 0, 0));
+        Panel.this.repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //Cell cell = new Cell(new Color(234, 185, 185), new Point(100,100), 50);
-        //cell.drawCell(g);
+        maze.setStartingPoint(this.getSize());
         this.maze.drawMaze(g);
+        //System.out.println(this.getSize());
     }
 }

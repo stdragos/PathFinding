@@ -8,7 +8,7 @@ public class Main {
         JFrame frame = new JFrame("Graph Paint");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new Panel());
-        frame.setSize(1000,600);
+        frame.setSize(800,800);
         frame.setVisible(true);
         frame.setFocusable(true);
         frame.requestFocusInWindow();

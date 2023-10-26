@@ -1,3 +1,4 @@
+
 import models.Maze;
 
 
@@ -35,7 +36,7 @@ public class Panel extends JPanel {
     public Panel() {
         readMatrix();
         setBackground(new Color(255, 255, 255));
-        maze = new Maze(intMaze, new Color(0,0,0), new Color(255,255,255), new Color(255, 0, 0));
+        maze = new Maze(this , intMaze, new Color(0,0,0), new Color(255,255,255), new Color(255, 0, 0));
     }
 
     @Override

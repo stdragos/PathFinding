@@ -11,9 +11,21 @@ public class Cell {
         position = point;
     }
 
+    public Point getPosition() {
+        return position;
+    }
+
+    public Color getCellColor() {
+        return cellColor;
+    }
+
     public Cell(Color cellColor, int length) {
         this.cellColor = cellColor;
         this.length = length;
+    }
+
+    public void setCellColor(Color color) {
+        this.cellColor = color;
     }
 
     public void drawCell(Graphics g) {
@@ -22,4 +34,5 @@ public class Cell {
         g.setColor(new Color(0,0,0));
         g.drawRect(this.position.x,this.position.y,  length,  length);
     }
+
 }

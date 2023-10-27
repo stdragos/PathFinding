@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Maze {
-    private List<List<Cell>> cellMaze = new ArrayList<>();
-    private List<List<Integer>> intMaze = new ArrayList<>();
+    public List<List<Cell>> cellMaze = new ArrayList<>();
+    public List<List<Integer>> intMaze = new ArrayList<>();
     private int startingPointX;
     private int startingPointY;
+
+    public Point startingCell;
 
     public void setStartingPoint(Dimension panelSize) {
         this.startingPointX = panelSize.width / 2 - intMaze.get(0).size() * 30;
@@ -27,13 +29,20 @@ public class Maze {
 
                     case 1 -> temp.add(new Cell(freeCell, 60));
 
-                    case 2-> temp.add(new Cell(startCell, 60));
+                    case 2-> {
+                        temp.add(new Cell(startCell, 60));
+                        startingCell = new Point(i,j);
+                    }
                 }
 
             }
             cellMaze.add(temp);
         }
 
+    }
+
+    public void editCell(Point pos, Color color) {
+        this.cellMaze.get(pos.x).get(pos.y).setCellColor(color);
     }
 
     public List<List<Integer>> getIntMaze() {

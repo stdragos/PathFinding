@@ -1,10 +1,9 @@
 package Maze.utils;
 
 import Maze.models.Maze;
-import java.util.LinkedList;
-import java.util.Queue;
+
+import java.util.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,13 +87,15 @@ public class Graph {
     private void pathsFindingBFS() {
         Queue<Node> queue = new LinkedList<>();
         queue.add(this.nodes.get(startingNodeNo - 1));
+        Set<Integer> visited = new HashSet<Integer>();
 
         while(!queue.isEmpty()) {
             Node current = queue.element();
             queue.remove();
             for(var element : current.getNeighbours()) {
-                if(this.nodes.get(element - 1).getPrevious() == null) {
+                if(this.nodes.get(element - 1).getPrevious() == null && !visited.contains(element)) {
                     this.nodes.get(element - 1).setPrevious(current);
+                    visited.add(element);
                     queue.add(this.nodes.get(element - 1));
                 }
             }
@@ -133,28 +134,8 @@ public class Graph {
                 }
 
             }
-            if(this.matrix.get(i).get(m-1) != 0) {
-                if(this.nodes.get(this.matrix.get(i).get(m-1) - 1).getPrevious() != null) {
-                    paths.add(reconstructPath(this.nodes.get(this.matrix.get(i).get(m-1) - 1)));
-                }
-                else {
-                    if(this.matrix.get(i).get(m-1) != 0)
-                        maze.cellMaze.get(i).get(m-1).setCellColor(new Color(255, 0, 0));
-                }
-
-            }
         }
-
         for(int j = 1; j < m - 1; ++j) {
-            if(this.matrix.get(0).get(j) != 0) {
-                if(this.nodes.get(this.matrix.get(0).get(j) - 1).getPrevious() != null) {
-                    paths.add(reconstructPath(this.nodes.get(this.matrix.get(0).get(j) - 1)));
-                }
-                else {
-                    if(this.matrix.get(0).get(j) != 0)
-                        maze.cellMaze.get(0).get(j).setCellColor(new Color(255, 0, 0));
-                }
-            }
             if(this.matrix.get(n-1).get(j) != 0) {
                 if(this.nodes.get(this.matrix.get(n-1).get(j) - 1).getPrevious() != null) {
                     paths.add(reconstructPath(this.nodes.get(this.matrix.get(n-1).get(j) - 1)));
@@ -165,6 +146,30 @@ public class Graph {
                 }
             }
         }
+        for(int i = n - 1; i >= 0; --i) {
+            if (this.matrix.get(i).get(m - 1) != 0) {
+                if (this.nodes.get(this.matrix.get(i).get(m - 1) - 1).getPrevious() != null) {
+                    paths.add(reconstructPath(this.nodes.get(this.matrix.get(i).get(m - 1) - 1)));
+                } else {
+                    if (this.matrix.get(i).get(m - 1) != 0)
+                        maze.cellMaze.get(i).get(m - 1).setCellColor(new Color(255, 0, 0));
+                }
+
+            }
+        }
+        for(int j = m - 2; j >= 0 ; --j) {
+            if(this.matrix.get(0).get(j) != 0) {
+                if(this.nodes.get(this.matrix.get(0).get(j) - 1).getPrevious() != null) {
+                    paths.add(reconstructPath(this.nodes.get(this.matrix.get(0).get(j) - 1)));
+                }
+                else {
+                    if(this.matrix.get(0).get(j) != 0)
+                        maze.cellMaze.get(0).get(j).setCellColor(new Color(255, 0, 0));
+                }
+            }
+        }
+
+
 
         return paths;
     }

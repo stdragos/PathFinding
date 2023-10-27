@@ -80,8 +80,10 @@ public class Panel extends JPanel {
         Graph graph = new Graph(maze, startingPoint);
         paths = graph.reconstructAllPaths();
 
-        for(int i = 0; i < paths.get(0).size() - 1;++i)
-            maze.editCell(paths.get(0).get(i), new Color(0, 255, 255));
+        if(!paths.isEmpty()) {
+            for (int i = 0; i < paths.get(0).size() - 1; ++i)
+                maze.editCell(paths.get(0).get(i), new Color(0, 255, 255));
+        }
 
         Panel.this.repaint();
     }

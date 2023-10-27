@@ -34,8 +34,7 @@ public class MouseListener implements javax.swing.event.MouseInputListener {
                 }
             }
         }
-        if(position != badPos){
-            System.out.println("prost");//refill cells with basic colors
+        if(position != badPos){//refill cells with basic colors
             if(panel.maze.intMaze.get(position.x).get(position.y) != 0) {
             for(int i = 0; i < panel.maze.cellMaze.size(); ++i) {
                 for (int j = 0; j < panel.maze.cellMaze.get(i).size(); ++j) {

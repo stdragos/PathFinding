@@ -61,6 +61,8 @@ public class MouseListener implements javax.swing.event.MouseInputListener {
             }
         }
         panel.repaint();
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
     }
 
     @Override

@@ -1,12 +1,10 @@
 package Maze;
 
-import Maze.listeners.MouseListener;
-import Maze.listeners.NextBttnActionListener;
-import Maze.listeners.PrevBttnActionListener;
-import Maze.listeners.ResizeListenerPanel;
+import Maze.listeners.*;
 import Maze.models.*;
 import Maze.utils.Graph;
 
+import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -54,9 +52,11 @@ public class Panel extends JPanel {
         setBackground(new Color(255, 255, 255));
         this.addComponentListener(new ResizeListenerPanel(this));
         this.setSize(frameSize);
-
+        this.addKeyListener(new KeyboardListener(this));
         addMouseListener(mouseListener = new MouseListener(this));
-        JButton previousBttn = new JButton("<<");
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        /* JButton previousBttn = new JButton("<<");
         previousBttn.setBounds(200,100,95,30);
         previousBttn.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(previousBttn);
@@ -66,7 +66,7 @@ public class Panel extends JPanel {
         nextBttn.setBounds(200,100,95,30);
         nextBttn.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(nextBttn);
-        nextBttn.addActionListener(new NextBttnActionListener(this));
+        nextBttn.addActionListener(new NextBttnActionListener(this));*/
 
         maze = new Maze(this , intMaze, blockedCell, freeCell, startCell);
 

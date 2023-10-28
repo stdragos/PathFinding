@@ -157,7 +157,7 @@ public class Graph {
 
             }
         }
-        for(int j = m - 2; j >= 0 ; --j) {
+        for(int j = m - 2; j >= 1 ; --j) {
             if(this.matrix.get(0).get(j) != 0) {
                 if(this.nodes.get(this.matrix.get(0).get(j) - 1).getPrevious() != null) {
                     paths.add(reconstructPath(this.nodes.get(this.matrix.get(0).get(j) - 1)));

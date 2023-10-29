@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Maze {
-    public List<List<Cell>> cellMaze = new ArrayList<>();
-    public List<List<Integer>> intMaze;
+    private final List<List<Cell>> cellMaze = new ArrayList<>();
+    private List<List<Integer>> intMaze;
     private int startingPointX;
     private int startingPointY;
 
     public Point startingCell;
+
+    public List<List<Cell>> getCellMaze() {
+        return cellMaze;
+    }
 
     public void setStartingPoint(Dimension panelSize) {
         this.startingPointX = panelSize.width / 2 - intMaze.get(0).size() * 30;

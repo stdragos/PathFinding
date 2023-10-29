@@ -22,32 +22,32 @@ public class KeyboardListener implements KeyListener {
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if(!panel.paths.isEmpty()) {
+            if(!panel.getPaths().isEmpty()) {
 
-                for (int i = 0; i < panel.paths.get(panel.whichPath).size() - 1; ++i) {
-                    panel.maze.editCell(panel.paths.get(panel.whichPath).get(i), new Color(255, 255, 255));
+                for (int i = 0; i < panel.getPaths().get(panel.getWhichPath()).size() - 1; ++i) {
+                    panel.getMaze().editCell(panel.getPaths().get(panel.getWhichPath()).get(i), new Color(255, 255, 255));
                 }
 
-                this.panel.whichPath = (panel.whichPath - 1);
-                if (this.panel.whichPath < 0)
-                    this.panel.whichPath = panel.paths.size() - 1;
+                this.panel.setWhichPath(panel.getWhichPath() - 1);
+                if (this.panel.getWhichPath() < 0)
+                    this.panel.setWhichPath(panel.getPaths().size() - 1);
 
-                for (int i = 0; i < panel.paths.get(panel.whichPath).size() - 1; ++i) {
-                    panel.maze.editCell(panel.paths.get(panel.whichPath).get(i), new Color(0, 255, 255));
+                for (int i = 0; i < panel.getPaths().get(panel.getWhichPath()).size() - 1; ++i) {
+                    panel.getMaze().editCell(panel.getPaths().get(panel.getWhichPath()).get(i), new Color(0, 255, 255));
                 }
 
                 panel.repaint();
             }
         }
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if(!panel.paths.isEmpty()) {
-                for (int i = 0; i < panel.paths.get(panel.whichPath).size() - 1; ++i) {
+            if(!panel.getPaths().isEmpty()) {
+                for (int i = 0; i < panel.getPaths().get(panel.getWhichPath()).size() - 1; ++i) {
 
-                    panel.maze.editCell(panel.paths.get(panel.whichPath).get(i), new Color(255, 255, 255));
+                    panel.getMaze().editCell(panel.getPaths().get(panel.getWhichPath()).get(i), new Color(255, 255, 255));
                 }
-                this.panel.whichPath = (panel.whichPath + 1) % panel.paths.size();
-                for (int i = 0; i < panel.paths.get(panel.whichPath).size() - 1; ++i) {
-                    panel.maze.editCell(panel.paths.get(panel.whichPath).get(i), new Color(0, 255, 255));
+                this.panel.setWhichPath((panel.getWhichPath() + 1) % panel.getPaths().size());
+                for (int i = 0; i < panel.getPaths().get(panel.getWhichPath()).size() - 1; ++i) {
+                    panel.getMaze().editCell(panel.getPaths().get(panel.getWhichPath()).get(i), new Color(0, 255, 255));
                 }
 
                 panel.repaint();

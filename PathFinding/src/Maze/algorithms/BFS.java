@@ -1,4 +1,4 @@
-package Maze.Algorithms;
+package Maze.algorithms;
 
 import Maze.utils.Graph;
 import Maze.utils.Node;

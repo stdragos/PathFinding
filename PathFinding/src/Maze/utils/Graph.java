@@ -1,6 +1,6 @@
 package Maze.utils;
 
-import Maze.Algorithms.BFS;
+import Maze.algorithms.BFS;
 import Maze.models.Maze;
 
 import java.util.*;
@@ -113,7 +113,7 @@ public class Graph {
                 }
                 else {
                     if(this.matrix.get(i).get(0) != 0)
-                        maze.cellMaze.get(i).get(0).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(i).get(0).setCellColor(new Color(255, 0, 0));
                 }
 
             }
@@ -125,7 +125,7 @@ public class Graph {
                 }
                 else {
                     if(this.matrix.get(n-1).get(j) != 0)
-                        maze.cellMaze.get(n-1).get(j).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(n-1).get(j).setCellColor(new Color(255, 0, 0));
                 }
             }
         }
@@ -135,7 +135,7 @@ public class Graph {
                     paths.add(reconstructPath(this.nodes.get(this.matrix.get(i).get(m - 1) - 1)));
                 } else {
                     if (this.matrix.get(i).get(m - 1) != 0)
-                        maze.cellMaze.get(i).get(m - 1).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(i).get(m - 1).setCellColor(new Color(255, 0, 0));
                 }
 
             }
@@ -147,7 +147,7 @@ public class Graph {
                 }
                 else {
                     if(this.matrix.get(0).get(j) != 0)
-                        maze.cellMaze.get(0).get(j).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(0).get(j).setCellColor(new Color(255, 0, 0));
                 }
             }
         }

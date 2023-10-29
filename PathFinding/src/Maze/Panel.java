@@ -13,15 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Panel extends JPanel {
-    public List<List<Integer>> intMaze = new ArrayList<>();
-    public Maze maze;
+    private List<List<Integer>> intMaze = new ArrayList<>();
+    private Maze maze;
     private Point startingPoint = new Point();
     public Color blockedCell = new Color(0,0,0);
     public Color freeCell = new Color(255,255,255);
     public Color startCell = new Color(255, 0, 0);
-    public int whichPath = 0;
-    public List<List<Point>> paths = new ArrayList<>();
+    private int whichPath = 0;
+    private List<List<Point>> paths = new ArrayList<>();
     MouseListener mouseListener;
+
+    public int getWhichPath() {
+        return whichPath;
+    }
+
+    public void setWhichPath(int pathNo) {
+        this.whichPath = pathNo;
+    }
+
+    public Maze getMaze() {
+        return maze;
+    }
+
+    public List<List<Point>> getPaths() {
+        return paths;
+    }
 
     public void setStartingPoint(Point startingPoint) {
         this.startingPoint = startingPoint;
@@ -55,17 +71,6 @@ public class Panel extends JPanel {
         addMouseListener(mouseListener = new MouseListener(this));
         this.setFocusable(true);
         this.requestFocusInWindow();
-        /* JButton previousBttn = new JButton("<<");
-        previousBttn.setBounds(200,100,95,30);
-        previousBttn.setFont(new Font("Arial", Font.PLAIN, 20));
-        this.add(previousBttn);
-        previousBttn.addActionListener(new PrevBttnActionListener(this));
-
-        JButton nextBttn = new JButton(">>");
-        nextBttn.setBounds(200,100,95,30);
-        nextBttn.setFont(new Font("Arial", Font.PLAIN, 20));
-        this.add(nextBttn);
-        nextBttn.addActionListener(new NextBttnActionListener(this));*/
 
         maze = new Maze(intMaze, blockedCell, freeCell, startCell);
 
@@ -74,7 +79,7 @@ public class Panel extends JPanel {
 
     public void recalculatePath(Point startingPoint) {
         this.startingPoint = startingPoint;
-        maze.cellMaze.get(startingPoint.x).get(startingPoint.y).setCellColor(new Color(0,255,0));
+        maze.getCellMaze().get(startingPoint.x).get(startingPoint.y).setCellColor(new Color(0,255,0));
 
         Graph graph = new Graph(maze, startingPoint);
         paths = graph.reconstructAllPaths();

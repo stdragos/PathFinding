@@ -1,5 +1,4 @@
 package Maze.models;
-import Maze.Panel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -7,7 +6,7 @@ import java.util.List;
 
 public class Maze {
     public List<List<Cell>> cellMaze = new ArrayList<>();
-    public List<List<Integer>> intMaze = new ArrayList<>();
+    public List<List<Integer>> intMaze;
     private int startingPointX;
     private int startingPointY;
 
@@ -18,7 +17,7 @@ public class Maze {
         this.startingPointY = panelSize.height / 2 - intMaze.size() * 30;
     }
 
-    public Maze(Panel panel, List<List<Integer>> maze, Color blockedCell, Color freeCell, Color startCell) {
+    public Maze(List<List<Integer>> maze, Color blockedCell, Color freeCell, Color startCell) {
         this.intMaze = maze;
 
         for(int i = 0; i < maze.size(); ++i) {

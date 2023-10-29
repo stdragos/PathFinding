@@ -4,7 +4,6 @@ import Maze.listeners.*;
 import Maze.models.*;
 import Maze.utils.Graph;
 
-import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -68,7 +67,7 @@ public class Panel extends JPanel {
         this.add(nextBttn);
         nextBttn.addActionListener(new NextBttnActionListener(this));*/
 
-        maze = new Maze(this , intMaze, blockedCell, freeCell, startCell);
+        maze = new Maze(intMaze, blockedCell, freeCell, startCell);
 
         Panel.this.repaint();
     }

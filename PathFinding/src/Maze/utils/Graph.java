@@ -1,24 +1,29 @@
 package Maze.utils;
 
+import Maze.Algorithms.BFS;
 import Maze.models.Maze;
 
 import java.util.*;
 import java.awt.*;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Graph {
-    private List<Node> nodes = new ArrayList<>(); // kept in order by number
-    private Point startingNode;
+    public List<Node> nodes = new ArrayList<>(); // kept in order by number
+    private final Point startingNode;
     private int startingNodeNo;
     List<List<Integer>> matrix = new ArrayList<>();
     Maze maze;
+    private final BFS bfs = new BFS(this);
+
+    public int getStartingNodeNo() {
+        return startingNodeNo;
+    }
 
     private boolean insideMatrix(int n, int m, int newX, int newY) {
         return newX >= 0 && newX < n && newY < m && newY >= 0;
     }
 
-    private List<List<Integer>> generateNeighbours(Maze maze, List<List<Integer>> matrix, int noFreeCells) {
+    private List<List<Integer>> generateNeighbours(List<List<Integer>> matrix, int noFreeCells) {
         int[] dx = {1, 0, -1, 0}, dy = {0, 1, 0, -1};
 
         List<List<Integer>> neighbours = new ArrayList<>();
@@ -63,10 +68,7 @@ public class Graph {
             }
         }
 
-
-
-
-        List<List<Integer>> neighbours = this.generateNeighbours(maze, matrix, number);
+        List<List<Integer>> neighbours = this.generateNeighbours(matrix, number);
 
         for(int i = 0; i < neighbours.size(); ++i) {
 
@@ -84,25 +86,6 @@ public class Graph {
 
     }
 
-    private void pathsFindingBFS() {
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(this.nodes.get(startingNodeNo - 1));
-        Set<Integer> visited = new HashSet<Integer>();
-
-        while(!queue.isEmpty()) {
-            Node current = queue.element();
-            queue.remove();
-            for(var element : current.getNeighbours()) {
-                if(this.nodes.get(element - 1).getPrevious() == null && !visited.contains(element)) {
-                    this.nodes.get(element - 1).setPrevious(current);
-                    visited.add(element);
-                    queue.add(this.nodes.get(element - 1));
-                }
-            }
-        }
-
-    }
-
     private List<Point> reconstructPath(Node destinationNode) {
         List<Point> path = new ArrayList<>();
         Node currentNode = destinationNode;
@@ -117,7 +100,7 @@ public class Graph {
     }
 
     public List<List<Point>> reconstructAllPaths() {
-        pathsFindingBFS();
+        bfs.pathsFindingBFS();
 
         List<List<Point>> paths = new ArrayList<>();
         int n = this.matrix.size();

@@ -50,14 +50,6 @@ public class MouseListener implements javax.swing.event.MouseInputListener {
             }
                 panel.whichPath = 0;
                 panel.recalculatePath(position);
-
-            /*for(int i = 0; i < panel.paths.get(panel.whichPath).size(); ++i) {
-
-                panel.maze.editCell(panel.paths.get(panel.whichPath).get(i), new Color(255, 255, 255));
-            }*/
-
-
-
             }
         }
         panel.repaint();

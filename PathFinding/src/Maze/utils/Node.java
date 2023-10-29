@@ -1,14 +1,13 @@
 package Maze.utils;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private int number;
-    private List<Integer> neighbours = new ArrayList<>();
+    private final int number;
+    private final List<Integer> neighbours;
     private Node previous = null;
-    private Point pos = null;
+    private final Point pos;
 
     public int getNumber() {
         return this.number;

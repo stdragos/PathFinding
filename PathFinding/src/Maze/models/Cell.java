@@ -5,7 +5,7 @@ import java.awt.*;
 public class Cell {
     private Color cellColor;
     private Point position;
-    private int length;
+    private final int length;
 
     public void setPosition(Point point) {
         position = point;

@@ -63,13 +63,11 @@ public class Panel extends JPanel {
         try {
             File myFile = new File("matrix.in");
             Scanner myReader = new Scanner(myFile);
-            int n = myReader.nextInt();
-            int m = myReader.nextInt();
-
-            for(int i = 0; i < n; ++i) {
+            while(myReader.hasNextLine()) {
+                String line = myReader.nextLine();
                 List<Integer> temp = new ArrayList<>();
-                for(int j = 0; j < m; ++j)
-                    temp.add(myReader.nextInt());
+                for(int i = 0; i < line.length(); ++i)
+                    temp.add(Integer.parseInt(String.valueOf(line.charAt(i))));
                 intMaze.add(temp);
             }
         } catch (FileNotFoundException e) {

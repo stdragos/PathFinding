@@ -16,6 +16,6 @@ public class ResizeListenerPanel extends ComponentAdapter {
     public void componentResized(ComponentEvent event) {
         Rectangle currentWindow = event.getComponent().getBounds();
         panel.setSize(new Dimension(currentWindow.width, currentWindow.height));
-
+        panel.repaint();
     }
 }

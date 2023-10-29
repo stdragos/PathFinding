@@ -1,11 +1,13 @@
 package Maze.utils;
 
 import Maze.algorithms.BFS;
+import Maze.managers.PathsManager;
 import Maze.models.Maze;
 
 import java.util.*;
 import java.awt.*;
 import java.util.List;
+import Maze.Panel;
 
 public class Graph {
     public List<Node> nodes = new ArrayList<>(); // kept in order by number
@@ -13,7 +15,9 @@ public class Graph {
     private int startingNodeNo;
     List<List<Integer>> matrix = new ArrayList<>();
     Maze maze;
+    private Panel panel;
     private final BFS bfs = new BFS(this);
+
 
     public int getStartingNodeNo() {
         return startingNodeNo;
@@ -48,11 +52,11 @@ public class Graph {
         return neighbours;
     }
 
-    public Graph(Maze maze, Point startingNode) {
+    public Graph(Maze maze, Point startingNode, Panel panel) {
         this.startingNode = startingNode;
         constructGraphFromMaze(maze);
         this.maze = maze;
-
+        this.panel = panel;
     }
 
     public void constructGraphFromMaze(Maze maze) {
@@ -74,32 +78,34 @@ public class Graph {
 
             //search the pos of the current node
             Point pos = null;
+            Point realPos = null;
             for(int j = 0; j < this.matrix.size() && pos == null; ++j)
-                for(int q = 0; q < this.matrix.get(0).size() && pos == null; ++q)
-                    if(this.matrix.get(j).get(q) == i + 1)
+                for(int q = 0; q < this.matrix.get(j).size() && pos == null; ++q)
+                    if(this.matrix.get(j).get(q) == i + 1) {
                         pos = new Point(j, q);
+                        realPos = maze.getCellMaze().get(j).get(q).getPosition();
+                    }
 
-            this.nodes.add(new Node(i + 1, neighbours.get(i), pos));
+            this.nodes.add(new Node(i + 1, neighbours.get(i), pos, realPos));
         }
 
         this.startingNodeNo = matrix.get(startingNode.x).get(startingNode.y);
-
     }
 
     private List<Point> reconstructPath(Node destinationNode) {
         List<Point> path = new ArrayList<>();
         Node currentNode = destinationNode;
-        path.add(currentNode.getPos());
+        path.add(currentNode.getRealPos());
 
         while(currentNode.getNumber() != startingNodeNo && currentNode.getPrevious() != null ) {
             currentNode = currentNode.getPrevious();
-            path.add(currentNode.getPos());
+            path.add(currentNode.getRealPos());
         }
 
         return path;
     }
 
-    public List<List<Point>> reconstructAllPaths() {
+    public void reconstructAllPaths(PathsManager pathsManager) {
         bfs.pathsFindingBFS();
 
         List<List<Point>> paths = new ArrayList<>();
@@ -113,7 +119,7 @@ public class Graph {
                 }
                 else {
                     if(this.matrix.get(i).get(0) != 0)
-                        maze.getCellMaze().get(i).get(0).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(i).get(0).setCellColor(panel.impossibleCell);
                 }
 
             }
@@ -125,7 +131,7 @@ public class Graph {
                 }
                 else {
                     if(this.matrix.get(n-1).get(j) != 0)
-                        maze.getCellMaze().get(n-1).get(j).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(n-1).get(j).setCellColor(panel.impossibleCell);
                 }
             }
         }
@@ -135,7 +141,7 @@ public class Graph {
                     paths.add(reconstructPath(this.nodes.get(this.matrix.get(i).get(m - 1) - 1)));
                 } else {
                     if (this.matrix.get(i).get(m - 1) != 0)
-                        maze.getCellMaze().get(i).get(m - 1).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(i).get(m - 1).setCellColor(panel.impossibleCell);
                 }
 
             }
@@ -147,13 +153,11 @@ public class Graph {
                 }
                 else {
                     if(this.matrix.get(0).get(j) != 0)
-                        maze.getCellMaze().get(0).get(j).setCellColor(new Color(255, 0, 0));
+                        maze.getCellMaze().get(0).get(j).setCellColor(panel.impossibleCell);
                 }
             }
         }
 
-
-
-        return paths;
+        pathsManager.setPaths(paths);
     }
 }

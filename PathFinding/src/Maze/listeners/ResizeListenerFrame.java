@@ -17,6 +17,5 @@ public class ResizeListenerFrame extends ComponentAdapter {
         Rectangle currentWindow = event.getComponent().getBounds();
         frame.setSize(new Dimension(currentWindow.width, currentWindow.height));
         frame.repaint();
-       // System.out.println(currentWindow.width+" "+ currentWindow.height);
     }
 }

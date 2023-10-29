@@ -1,6 +1,7 @@
 package Maze;
 
 import Maze.listeners.*;
+import Maze.managers.PathsManager;
 import Maze.models.*;
 import Maze.utils.Graph;
 
@@ -16,12 +17,27 @@ public class Panel extends JPanel {
     private List<List<Integer>> intMaze = new ArrayList<>();
     private Maze maze;
     private Point startingPoint = new Point();
-    public Color blockedCell = new Color(0,0,0);
-    public Color freeCell = new Color(255,255,255);
-    public Color startCell = new Color(255, 0, 0);
+    public Color blockedCell = new Color(15,14,14);
+    public Color freeCell = new Color(234, 224, 204);
+    public Color startCell = new Color(63, 97, 45);
+    public Color impossibleCell = new Color(250, 0, 63);
+    public Color pathColor = new Color(34, 124, 157);
+    public Color arrowColor = new Color(45, 48, 71);
     private int whichPath = 0;
+    private int cellSize = 60;
     private List<List<Point>> paths = new ArrayList<>();
     MouseListener mouseListener;
+
+
+    public int getCellSize() {
+        return cellSize;
+    }
+
+    private PathsManager pathsManager = new PathsManager();
+
+    public PathsManager getPathsManager() {
+        return pathsManager;
+    }
 
     public int getWhichPath() {
         return whichPath;
@@ -72,22 +88,19 @@ public class Panel extends JPanel {
         this.setFocusable(true);
         this.requestFocusInWindow();
 
-        maze = new Maze(intMaze, blockedCell, freeCell, startCell);
+        maze = new Maze(intMaze, blockedCell, freeCell, startCell, this);
 
         Panel.this.repaint();
     }
 
     public void recalculatePath(Point startingPoint) {
         this.startingPoint = startingPoint;
-        maze.getCellMaze().get(startingPoint.x).get(startingPoint.y).setCellColor(new Color(0,255,0));
+        maze.getCellMaze().get(startingPoint.x).get(startingPoint.y).setCellColor(startCell);
 
-        Graph graph = new Graph(maze, startingPoint);
-        paths = graph.reconstructAllPaths();
-
-        if(!paths.isEmpty()) {
-            for (int i = 0; i < paths.get(0).size() - 1; ++i)
-                maze.editCell(paths.get(0).get(i), new Color(0, 255, 255));
-        }
+        Graph graph = new Graph(maze, startingPoint, this);
+        graph.reconstructAllPaths(pathsManager);
+        pathsManager.setInitialPanelDim(new Dimension(maze.getStartingPointX(), maze.getStartingPointY()));
+        pathsManager.setWhichPath(0);
 
         Panel.this.repaint();
     }
@@ -97,5 +110,6 @@ public class Panel extends JPanel {
         super.paintComponent(g);
         maze.setStartingPoint(this.getSize());
         this.maze.drawMaze(g);
+        pathsManager.paintPath(g, new Dimension(maze.getStartingPointX(), maze.getStartingPointY()), pathColor, arrowColor, cellSize);
     }
 }

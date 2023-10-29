@@ -23,13 +23,11 @@ public class MouseListener implements javax.swing.event.MouseInputListener {
     public void mousePressed(MouseEvent e) {
         Point badPos = new Point(-1,-1);
         Point position = badPos;
-
         for(int i = 0; i < panel.getMaze().getCellMaze().size() && position == badPos; ++i) {
             for(int j = 0; j < panel.getMaze().getCellMaze().get(i).size() && position == badPos; ++j) {
                 Point cellCoords = panel.getMaze().getCellMaze().get(i).get(j).getPosition();
-                cellCoords.x += 30;
-                cellCoords.y += 30;
-                if(Point2D.distance(cellCoords.x, cellCoords.y, e.getX(), e.getY()) <= 30){
+
+                if(Point2D.distance(cellCoords.x + (int)(panel.getCellSize()/2), cellCoords.y + (int)(panel.getCellSize()/2), e.getX(), e.getY()) <= (int)(panel.getCellSize()/2)){
                     position = new Point(i,j);
                 }
             }
@@ -38,12 +36,10 @@ public class MouseListener implements javax.swing.event.MouseInputListener {
             if(panel.getMaze().getIntMaze().get(position.x).get(position.y) != 0) {
             for(int i = 0; i < panel.getMaze().getCellMaze().size(); ++i) {
                 for (int j = 0; j < panel.getMaze().getCellMaze().get(i).size(); ++j) {
-                    if(Objects.equals(panel.getMaze().getCellMaze().get(i).get(j).getCellColor(), new Color(0, 255, 255)))
-                        panel.getMaze().getCellMaze().get(i).get(j).setCellColor(new Color(255,255,255));
-                    if(Objects.equals(panel.getMaze().getCellMaze().get(i).get(j).getCellColor(), new Color(0, 255, 0)))
-                        panel.getMaze().getCellMaze().get(i).get(j).setCellColor(new Color(255,255,255));
-                    if(Objects.equals(panel.getMaze().getCellMaze().get(i).get(j).getCellColor(), new Color(255, 0,0)))
-                        panel.getMaze().getCellMaze().get(i).get(j).setCellColor(new Color(255,255,255));
+                    if(Objects.equals(panel.getMaze().getCellMaze().get(i).get(j).getCellColor(), panel.startCell))
+                        panel.getMaze().getCellMaze().get(i).get(j).setCellColor(panel.freeCell);
+                    if(Objects.equals(panel.getMaze().getCellMaze().get(i).get(j).getCellColor(), panel.impossibleCell))
+                        panel.getMaze().getCellMaze().get(i).get(j).setCellColor(panel.freeCell);
                     if(panel.getMaze().getIntMaze().get(i).get(j) != 0)
                         panel.getMaze().getIntMaze().get(i).set(j,1);
                 }
